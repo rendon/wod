@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import json
 
 app = FastAPI()
@@ -11,5 +11,14 @@ def get_words():
     return db
 
 @app.get("/wod/")
-def read_root():
+def wod():
     return get_words()
+
+
+@app.get("/wod/{date}")
+def wod_on_date(date: str):
+    words = get_words()
+    if date in words:
+        return {'date': date, 'word': words[date]}
+
+    raise HTTPException(status_code=404, detail="Word not found")
