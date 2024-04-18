@@ -23,3 +23,22 @@ autorestart=true
 stderr_logfile=/home/user/projects/wod/logs/wod.err.log
 stdout_logfile=/home/user/projects/wod/logs/wod.out.log
 ```
+
+Deploy to production with Docker
+Build:
+```sh
+docker build -t wod-api .
+```
+
+Run and publish ports:
+```sh
+docker run -d --rm --name wod-api -p 8888:8888 wod-api
+```
+
+## TODO
+- Make /wod/ query merriam webster everyday for the new word of the day
+- Build a database of the 20K most common English words
+- Add /words api that returns all 20K words in pages
+- Add /words/{word} api
+- Collect request metrics
+
